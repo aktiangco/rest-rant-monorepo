@@ -17,6 +17,8 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use('/places', require('./controllers/places'))
 app.use('/users', require('./controllers/users'))
+// * Creating an authentication controller
+app.use('/authentication', require('./controllers/authentication'))
 
 // Listen for Connections
 app.listen(process.env.PORT, () => {
