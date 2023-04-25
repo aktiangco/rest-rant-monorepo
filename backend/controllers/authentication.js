@@ -16,8 +16,16 @@ router.post('/', async (req, res) => {
             message: `Could not find a user with the provided username and password` 
         })
     } else {
+        // To access cookies
+        req.session.userId = user.userId
         res.json({ user })
     }
 })
+
+// Add a request handler to the authentication controller
+router.get('/profile', async (req, res) => {
+   
+})
+
 
 module.exports = router

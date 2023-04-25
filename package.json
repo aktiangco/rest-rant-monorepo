@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/aktiangco/rest-rant-monorepo#readme",
   "dependencies": {
-    "bcrypt": "^5.1.0"
+    "bcrypt": "^5.1.0",
+    "cookie-session": "^2.0.0"
   }
 }
