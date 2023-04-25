@@ -5,16 +5,19 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const app = express();
 // adding  cookies
-const cookiesSession = require('cookie-session')
+const cookieSession = require('cookie-session')
 
 // MIDDLEWARE / Express Settings
-app.use(cookiesSession({
+app.use(cookieSession({
     name: 'session',
-    keys: [process.env.SESSION_SECRET],
-    maxAge: 24 * 60 * 60 * 1000 //24 HOURS
+    keys: [ process.env.SESSION_SECRET ],
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }))
 
-app.use(cors())
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+}))
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 app.use(bodyParser.json())
