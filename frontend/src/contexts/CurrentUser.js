@@ -1,9 +1,20 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 
 export const CurrentUser = createContext()
 
-function CurrentUserProvider({ children }){
+function CurrentUserProvider({ children }) {
+    //  Fetch the current user on page load
+    useEffect(() => {
+
+        const getLoggedInUser = async () => {
+            let response = await fetch('http://localhost:5000/authentication/profile')
+            let user = await response.json()
+            setCurrentUser(user)
+        }
+        getLoggedInUser()
+    }, [])
+  
 
     const [currentUser, setCurrentUser] = useState(null)
 
