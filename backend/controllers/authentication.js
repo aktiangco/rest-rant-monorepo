@@ -2,7 +2,7 @@ const router = require('express').Router()
 const db = require("../models")
 const bcrypt = require('bcrypt')
 //  require npm package
-const jwt = require('jwt')
+const jwt = require('json-web-token')
 
 const { User } = db
 
@@ -20,7 +20,7 @@ router.post('/', async (req, res) => {
     } else {
         // The first argument we're passing, jwt.encode, is a random string for jwt to use to hash the token signature. 
         // Like the SESSION_SECRET, we'll need to add this to our .env file
-        const result = await jwt.encode(process.env.JWT_SECRET, { id: user.user.ID }) // Payload
+        const result = await jwt.encode(process.env.JWT_SECRET, { id: user.userId }) // Payload
         // send both the authenticated user and the JWT we created.
         res.json({ user: user, token: result.value })
     }
@@ -31,7 +31,7 @@ router.get('/profile', async (req, res) => {
     try {
         let user = await User.findOne({
             where: {
-                userId:  
+                userId: id
             }
         })
         res.json(user)

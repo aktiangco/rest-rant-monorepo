@@ -30,6 +30,8 @@ function LoginForm() {
         // * Handling log in in the front end
         if (response.status === 200) {
             setCurrentUser(data.user)
+            // saving into local storage
+            localStorage.setItem('token', data.token)
             history.push(`/`)
         } else {
             setErrorMessage(data.message)
