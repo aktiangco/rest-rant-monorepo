@@ -1,6 +1,8 @@
 const router = require('express').Router()
 const db = require("../models")
 const bcrypt = require('bcrypt')
+//  require npm package
+const jwt = require('jwt')
 
 const { User } = db
 
@@ -16,7 +18,11 @@ router.post('/', async (req, res) => {
             message: `Could not find a user with the provided username and password` 
         })
     } else {
-        res.json({ user })
+        // The first argument we're passing, jwt.encode, is a random string for jwt to use to hash the token signature. 
+        // Like the SESSION_SECRET, we'll need to add this to our .env file
+        const result = await jwt.encode(process.env.JWT_SECRET, { id: user.user.ID }) // Payload
+        // send both the authenticated user and the JWT we created.
+        res.json({ user: user, token: result.value })
     }
 })
 
