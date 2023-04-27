@@ -6,7 +6,17 @@ function Navigation() {
 
     const history = useHistory()
 
-    const { currentUser } = useContext(CurrentUser)
+    const { currentUser, setCurrentUser } = useContext(CurrentUser)
+    
+    const handleLogout = async () => {
+        await fetch('http://localhost:5000/authentication/logout', {
+          method: 'POST',
+          credentials: 'include',
+        })
+    
+        setCurrentUser(null)
+        history.push('/login')
+      }
 
     let loginActions = (
         <>
@@ -25,14 +35,16 @@ function Navigation() {
 
     if (currentUser) {
         loginActions = (
-            <li style={{ float: 'right' }}>
-                Logged in as {currentUser.firstName} {currentUser.lastName}
+            <li style={{ float: 'right', fontSize: 15, margin: 0, padding: 0 }}>
+                    Logged in as <strong style={{fonSize: 25}}> {currentUser.firstName} {currentUser.lastName}</strong> 
+                    <a style={{ float: 'top', margin: 0, fontSize: 11 }} href="#" onClick={handleLogout}><br />Logout </a>
+                
             </li>
         )
     }
 
     return (
-        <nav>
+        <nav style={{padding: 20}}>
             <ul>
                 <li>
                     <a href="#" onClick={() => history.push("/")}>
