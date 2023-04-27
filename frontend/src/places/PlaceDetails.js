@@ -16,6 +16,7 @@ function PlaceDetails() {
 			const response = await fetch(`http://localhost:5000/places/${placeId}`)
 			const resData = await response.json()
 			setPlace(resData)
+			
 		}
 		fetchData()
 	}, [placeId])
@@ -50,6 +51,7 @@ function PlaceDetails() {
 	async function createComment(commentAttributes) {
 		const response = await fetch(`http://localhost:5000/places/${place.placeId}/comments`, {
 			method: 'POST',
+			credentials: 'include', // include the session cookie when making the fetch request that creates a new comment
 			headers: {
 				'Content-Type': 'application/json'
 			},
