@@ -16,7 +16,7 @@ module.exports = {
       ],
       defaultValue: 'reviewer'
     })
-  },
+},
 
   down: async (queryInterface, Sequelize) => {
     /**
